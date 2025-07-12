@@ -25,7 +25,6 @@ interface UserWallet {
 
 export default function Home() {
   const [mnemonic, setMnemonic] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
   const [selectedChain, setSelectedChain] = useState('');
   const [wallets, setWallets] = useState<UserWallet[]>([]);
   const [accountIndex, setAccountIndex] = useState(0);
@@ -36,8 +35,6 @@ export default function Home() {
     solana: (index: number) => `m/44'/501'/0'/${index}'`,
     ethereum: (index: number) => `m/44'/60'/0'/0/${index}`,
   };
-
-  const toggleDropDown = () => setIsOpen((prev) => !prev);
 
   const handleMnemonicGeneration = () => {
     if (bip39) {
