@@ -84,8 +84,7 @@ export default function Home() {
         privateKeyEncoded = bs58.encode(secretKey);
         publicKeyEncoded = keypair.publicKey.toBase58();
       } else if (chainKey === 'ethereum') {
-        const hdNode = ethers.HDNodeWallet.fromPhrase(mnemonic);
-        const wallet = hdNode.derivePath(path);
+        const wallet = ethers.HDNodeWallet.fromPhrase(mnemonic, path);
         publicKeyEncoded = wallet.address;
         privateKeyEncoded = wallet.privateKey;
       } else {
@@ -105,7 +104,8 @@ export default function Home() {
       setAccountIndex((prev) => prev + 1);
       return wallet;
     } catch (e) {
-      toast.error('Failed to generate wallet. Please try again later.' + e);
+      console.error('Wallet generation error:', e);
+      toast.error('Failed to generate wallet. Please try again later. Error: ' + e);
       return null;
     }
   };
